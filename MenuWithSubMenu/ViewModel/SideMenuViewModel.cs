@@ -18,7 +18,17 @@ namespace MenuWithSubMenu.ViewModel
 
         public List<MenuItemsData> MenuList
         {
+            get
+            {
+                return new List<MenuItemsData> 
+                {                    
+                    new MenuItemsData()
+                    {
+                        PathData = (PathGeometry)
+                    } 
+                };
 
+            }
         }
     }
 
