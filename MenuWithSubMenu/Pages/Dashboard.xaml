@@ -8,7 +8,18 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Dashboard">
 
+   
     <Grid>
-        <TextBlock FontSize="30" Text="Dashboard" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock FontSize="30" Text="Dashboard" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button x:Name="BtnNew"
+                    Width="50"
+                    Height="30"
+                    Content="New"
+                    Command="{Binding MenuCommand}"
+                    CommandParameter="New User"
+                />
+
+        </StackPanel>
     </Grid>
 </Page>

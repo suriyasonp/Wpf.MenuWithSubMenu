@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace MenuWithSubMenu.ViewModel
@@ -46,7 +44,7 @@ namespace MenuWithSubMenu.ViewModel
                                 new SubMenuItemsData()
                                 {
                                     PathData = (PathGeometry)dictionary["icon_alluser"],
-                                    SubMenuText ="Add Users"
+                                    SubMenuText ="All Users"
                                 }
                             }
                         },  
@@ -89,17 +87,72 @@ namespace MenuWithSubMenu.ViewModel
     }
 
 
+
+
     public class MenuItemsData
     {
         // Icon data
         public PathGeometry PathData { get; set; }
         public string MenuText { get; set; }
         public List<SubMenuItemsData> SubMenuList { get; set; }
+
+        // To add click event in buttons by ICommand to switch pages when specific button is clicked.
+        public MenuItemsData()
+        {
+            Command = new CommandViewModel(Execute);
+        }
+
+        public ICommand Command { get; }
+        private void Execute()
+        {
+            string menuText = MenuText.Replace(" ", string.Empty);
+            if (!string.IsNullOrEmpty(menuText))
+            {
+                navigateToPage(menuText);
+            }
+        }
+
+        private void navigateToPage(string menu)
+        {
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType() == typeof(MainWindow))
+                {
+                    ((MainWindow)window).MainWindowsFrame.Navigate(new Uri(string.Format("{0}{1}{2}", "Pages/", menu, ".xaml"), UriKind.RelativeOrAbsolute));
+                }
+            }
+        }
     }
 
     public class SubMenuItemsData
     {
         public PathGeometry PathData { get; set; }
         public string SubMenuText { get; set; }
+
+        public SubMenuItemsData()
+        {
+            SubMenuCommand = new CommandViewModel(Execute);
+        }
+
+        public ICommand SubMenuCommand { get; }
+        private void Execute()
+        {
+            string subMenuText = SubMenuText.Replace(" ", string.Empty);
+            if (!string.IsNullOrEmpty(subMenuText))
+            {
+                navigateToPage(subMenuText);
+            }
+        }
+
+        private void navigateToPage(string menu)
+        {
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType() == typeof(MainWindow))
+                {
+                    ((MainWindow)window).MainWindowsFrame.Navigate(new Uri(string.Format("{0}{1}{2}", "Pages/", menu, ".xaml"), UriKind.RelativeOrAbsolute));
+                }
+            }
+        }
     }
 }

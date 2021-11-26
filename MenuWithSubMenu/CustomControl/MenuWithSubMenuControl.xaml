@@ -101,7 +101,14 @@
             <Setter Property="Focusable" Value="False"/>
             <Setter Property="SelectedIndex" Value="0"/>
             <Style.Triggers>
-                <!--<DataTrigger-->
+                <!--Hide Sub Menu List when the parent menu button is unchecked-->
+                <DataTrigger Binding="{Binding IsChecked, ElementName=Menu}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger> 
+                <!--Hide when the submenu list comming from viewmodel is null-->
+                <DataTrigger Binding="{Binding SubMenuList}" Value="{x:Null}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style TargetType="{x:Type ListBoxItem}">
@@ -115,7 +122,8 @@
                             <RadioButton x:Name="SMenuButton"
                                          GroupName="SubMenu"
                                          Style="{StaticResource MenuButtonStyle}"
-                                         Content="{Binding SubMenuText, FallbackValue=MenuText, TargetNullValue=MenuText}"/>
+                                         Content="{Binding SubMenuText, FallbackValue=MenuText, TargetNullValue=MenuText}"
+                                         Command="{Binding SubMenuCommand}"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <DataTrigger Binding="{Binding IsChecked, ElementName=SMenuButton}" Value="True">
@@ -126,7 +134,6 @@
 
                 </Setter.Value>
             </Setter>
-
         </Style>
     </UserControl.Resources>
 
@@ -146,7 +153,8 @@
                                  Content="{Binding MenuText}"
                                  GroupName="MainMenu"
                                  Height="30"
-                                 Style="{StaticResource MenuButtonStyle}"/>
+                                 Style="{StaticResource MenuButtonStyle}"
+                                 Command="{Binding Command}"/>
 
                     <!--Sub Menu Button-->
                     <ListBox ItemsSource="{Binding SubMenuList}"

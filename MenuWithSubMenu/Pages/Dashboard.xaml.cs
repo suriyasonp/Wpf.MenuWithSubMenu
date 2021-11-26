@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using MenuWithSubMenu.ViewModel;
 
 namespace MenuWithSubMenu.Pages
 {
@@ -10,6 +11,8 @@ namespace MenuWithSubMenu.Pages
         public Dashboard()
         {
             InitializeComponent();
+
+            this.DataContext = new DashboardViewmodel();
         }
     }
 }
