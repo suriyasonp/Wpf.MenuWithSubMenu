@@ -7,6 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>            
+        </Grid.ColumnDefinitions>
 
+        <!--Side menu-->
+        
+        
+        <!--Frame for pages to navigate when a menu is clicked.-->
+        <Frame Grid.Column="1" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
